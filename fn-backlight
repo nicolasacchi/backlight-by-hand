@@ -1,0 +1,57 @@
+#!/usr/bin/env python
+
+'''
+Custom script to change the backlight on Lenovo U31-70.
+Directly edits the /sys/class/backlight/intel_backlight/brightness file.
+
+Needs to be run with sudo. You'll want to add a line to your /etc/sudoers file so you don't
+need to input the password every time:
+
+    username ALL = (root) NOPASSWD:/home/username/bin/fn-backlight
+'''
+import sys
+
+# Change these for your system if appropriate
+brightness_file = "/sys/class/backlight/intel_backlight/brightness"
+max_brightness_file = "/sys/class/backlight/intel_backlight/max_brightness"
+min_value = 10
+step = 10
+
+if not len(sys.argv) == 2 or (sys.argv[1] not in ("up", "down", "max", "info", "toggle") and not sys.argv[1].isdigit()):
+    print("Usage: fn-backlight <up|down|max|info|toggle|NUMBER>")
+    sys.exit()
+
+max_value = float(open(max_brightness_file, 'r').read().strip())
+current_value = float(open(brightness_file, 'r').read().strip())
+actual_step = max_value * (float(step) / 100)
+
+
+def get_info():
+    return current_value / max_value * 100
+
+
+def set_value(value, force=False):
+    value = int(value)
+    if value > max_value:
+        value = int(max_value)
+    elif value < min_value and not force:
+        value = min_value
+    open(brightness_file, 'w').write(str(value))
+    print(value)
+
+
+if sys.argv[1] == "info":
+    print(get_info())
+elif sys.argv[1] == "up":
+    set_value(current_value + actual_step)
+elif sys.argv[1] == "down":
+    set_value(current_value - actual_step)
+elif sys.argv[1] == "max":
+    set_value(max_value)
+elif sys.argv[1] == "toggle":
+    if current_value > 0:
+        set_value(0, force=True)
+    else:
+        set_value(max_value / 2)
+elif sys.argv[1].isdigit():
+    set_value(max_value * (float(sys.argv[1]) / 100))
