@@ -1,15 +1,15 @@
 # fn-backlight
 
 This is a custom way to change the backlight on systems for which xbacklight
-can't find outputs because they don't live at /sys/class/backlight. Such
+can't find outputs because they don't live at `/sys/class/backlight`. Such
 systems have backlight controls at a subdir such as
 `/sys/class/backlight/intel_backlight`. This script provides a wrapper interface
-to the backlight controls.
+to those backlight controls.
 
-This was made to allow for binding the backlight controls to media keys in
-systems which, by their choice of window manager, don't have automatic function
-key mapping, as is the case with Awesome and i3. For these cases, this script
-can be mapped with `xbindkeys` to provide the same functionality.
+This was written with the purpose of binding the backlight controls to media
+keys in systems which, by their choice of window manager, don't have automatic
+function key mapping, as is the case with Awesome and i3. For these cases, this
+script can be mapped with `xbindkeys` to provide the same functionality -- see below.
 
 ## Installation
 
