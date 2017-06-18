@@ -31,16 +31,16 @@ This example presumes you've placed the script inside `~/bin/`.
 ## Usage
 
 ```bash
-    # raise
-    fn-backlight up
-    # lower
-    fn-backlight down
-    # set to maximum level
-    fn-backlight max
-    # get the current value in percent
-    fn-backlight info
-    # toggle between minimum value and 50%
-    fn-backlight toggle
+# raise
+fn-backlight up
+# lower
+fn-backlight down
+# set to maximum level
+fn-backlight max
+# get the current value in percent
+fn-backlight info
+# toggle between minimum value and 50%
+fn-backlight toggle
 ```
 
 ## Mapping function keys with xbindkeys
