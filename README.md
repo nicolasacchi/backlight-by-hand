@@ -1,25 +1,27 @@
 # fn-backlight
 
-This is a custom way to change the backlight on systems for which xbacklight
-can't find outputs because they don't live at `/sys/class/backlight`. Such
-systems have backlight controls at a subdir such as
-`/sys/class/backlight/intel_backlight`. This script provides a wrapper interface
-to those backlight controls.
+This is a custom way to change the backlight on systems for which
+[xbacklight](https://linux.die.net/man/1/xbacklight) can't find outputs because
+they don't live at `/sys/class/backlight`. Such systems have backlight controls
+at a subdir such as `/sys/class/backlight/intel_backlight`. This script
+provides a wrapper interface to those backlight controls.
 
 This was written with the purpose of binding the backlight controls to media
 keys in systems which, by their choice of window manager, don't have automatic
-function key mapping, as is the case with Awesome and i3. For these cases, this
-script can be mapped with `xbindkeys` to provide the same functionality -- see below.
+function key mapping, as is the case with [Awesome](http://awesomewm.org) and
+[i3](https://i3wm.org/). For these cases, this script can be mapped with
+`xbindkeys` to provide the same functionality -- see below.
 
 ## Installation
 
-Be sure to edit the script for your system's values, namely the location of the
-dir that contains the `brightness` and `max_brightness` files, as well as the
-step for raising/lowering and the minimum brightness value that you want.
+Be sure to edit the script's variables (located at the beginning) to match your
+system's values, namely the location of the dir that contains the `brightness`
+and `max_brightness` files, as well as the step for raising/lowering and the
+minimum brightness value that you want.
 
-This script needs to be run with sudo, since it directly edits the
+This script needs to be run with `sudo`, since it directly edits the
 `/sys/class/backlight/intel_backlight/brightness` file. You'll want to add a
-line to your /etc/sudoers file so that you don't need to input the password
+line to your `/etc/sudoers` file so that you don't need to input the password
 every time:
 
     username ALL = (root) NOPASSWD:/home/username/bin/fn-backlight
@@ -54,6 +56,6 @@ This is an example config file for `xbindkeys` to map function keys appropriatel
   m:0x8 + c:70
 ```
 
-It was written for a Lenovo U31-70; run `xbindkeys --key` to find your own
-system's key codes and alter your config accordingly.
+It was written for a Lenovo U31-70 laptop; run `xbindkeys --key` to find your
+own system's key codes and alter your config accordingly.
 
